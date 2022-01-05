@@ -92,16 +92,16 @@ class CustomConfig(Config):
 
     # We use a GPU with 16GB memory, which can fit two images.
     # Adjust down if you use a smaller GPU.
-    IMAGES_PER_GPU = 4
+    IMAGES_PER_GPU = 2
     
     # Set GPU_COUNT
-    GPU_COUNT = 1
+    GPU_COUNT = 2
 
     # Number of classes (including background)
     NUM_CLASSES = 1 + 6  # Background + cardboard + glass + metal + paper + plastic + trash
 
     # Number of training steps per epoch
-    STEPS_PER_EPOCH = 523 # 2092/(4*1) (len(train_images)/(IMAGES_PER_GPU*GPU_COUNT))
+    STEPS_PER_EPOCH = 523 # 2092/(1*4) (len(train_images)/(IMAGES_PER_GPU*GPU_COUNT))
     
     # Learning rate - value from 0 to 1
     LEARNING_RATE = 0.001
