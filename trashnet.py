@@ -101,13 +101,20 @@ class CustomConfig(Config):
     NUM_CLASSES = 1 + 6  # Background + cardboard + glass + metal + paper + plastic + trash
 
     # Number of training steps per epoch
-    STEPS_PER_EPOCH = 1046 # 2092/(1*4) (len(train_images)/(IMAGES_PER_GPU*GPU_COUNT))
+    STEPS_PER_EPOCH = 585 # 1170/(2*1) (len(train_images)/(IMAGES_PER_GPU*GPU_COUNT))
     
     # Learning rate - value from 0 to 1
     LEARNING_RATE = 0.001
 
     # Skip detections with < 90% confidence
     DETECTION_MIN_CONFIDENCE = 0.9
+    
+    # Backbone network architecture
+    # Supported values are: resnet50, resnet101.
+    # You can also provide a callable that should have the signature
+    # of model.resnet_graph. If you do so, you need to supply a callable
+    # to COMPUTE_BACKBONE_SHAPE as well
+    BACKBONE = "resnet101"
 
 
 ############################################################
@@ -136,15 +143,15 @@ class CustomDataset(utils.Dataset):
         annots_dir = os.path.join(dataset_dir, "annots")
 
         # Train or validation dataset?
-        # assert subset in ["train", "val"]
+        # assert subset in ["train", "val", "test"]
         # dataset_dir = os.path.join(dataset_dir, subset)
         
         # Train or validation or test images dataset
-        assert subset in ["train", "val"]
+        assert subset in ["train", "val", "test"]
         dataset_images_dir = os.path.join(images_dir, subset)
         
         # Train or validation or test annotations dataset
-        assert subset in ["train", "val"]
+        assert subset in ["train", "val", "test"]
         dataset_annots_dir = os.path.join(annots_dir, subset)
 
         # Load annotations
